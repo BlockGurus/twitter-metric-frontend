@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+const redirectUrl = process.env.NEXT_PUBLIC_TWITTER_REDIRECT_URL;
 
 export function SignInForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,7 +25,7 @@ export function SignInForm() {
       const { error: signInError } = await supabase.auth.signInWithOAuth({
         provider: 'twitter',
         options: {
-          redirectTo: `${window.location.origin}/dashboard`,
+          redirectTo: `${redirectUrl}`,
           scopes: 'tweet.read users.read',
         },
       });
