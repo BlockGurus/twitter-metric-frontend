@@ -13,8 +13,12 @@ export function EngagementOverview() {
   const nextMilestone = Math.ceil(totalPoints / 1000) * 1000;
 
   useEffect(() => {
-    const progressValue = (totalPoints % 1000) / 10;
-    setProgress(progressValue);
+    const fetchData = async () => {
+      const progressValue = (totalPoints % 1000) / 10;
+      setProgress(progressValue);
+    };
+
+    fetchData();
   }, [totalPoints]);
 
   return (

@@ -4,8 +4,13 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   images: { unoptimized: true },
-  // Remove static export to allow API routes
-  // output: 'export',
+  webpack: (config) => {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      ws: false,
+    };
+    return config;
+  },
 };
 
 module.exports = nextConfig;

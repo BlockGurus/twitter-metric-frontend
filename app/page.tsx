@@ -6,7 +6,7 @@ import { Testimonials } from "./components/Testimonials";
 import { FAQ } from "./components/FAQ";
 import { Footer } from "./components/Footer";
 
-export default function Home() {
+const Home = () => {
   return (
     <div className="min-h-screen bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2832')] bg-cover bg-fixed">
       <div className="min-h-screen backdrop-blur-xl bg-black/50">
@@ -15,6 +15,7 @@ export default function Home() {
           <Features />
           <HowItWorks />
           <EngagementStats />
+
           <Testimonials />
           <FAQ />
         </main>
@@ -22,4 +23,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;
