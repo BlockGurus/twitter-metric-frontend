@@ -29,6 +29,12 @@ export function useAuth(initialUser: User | null = null) {
     return () => subscription.unsubscribe();
   }, [supabase]);
 
+  useEffect(() => {
+    let _user = localStorage.getItem("sb-lysagtmixldesfmutaby-auth-token");
+    if (_user) {
+      setUser(JSON.parse(_user));
+    }
+  }, [user]);
   return {
     user,
     loading,
