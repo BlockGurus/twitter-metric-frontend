@@ -14,30 +14,37 @@ export function SignInForm() {
 
   const handleSignIn = async () => {
     if (!supabase) {
-      setError("Please connect your Supabase project first by clicking the 'Connect to Supabase' button in the top right corner.");
+      setError(
+        "Please connect your Supabase project first by clicking the 'Connect to Supabase' button in the top right corner."
+      );
       return;
     }
 
     try {
       setIsLoading(true);
       setError(null);
-      
+
       const { error: signInError } = await supabase.auth.signInWithOAuth({
-        provider: 'twitter',
+        provider: "twitter",
         options: {
           redirectTo: `${redirectUrl}`,
-          scopes: 'tweet.read users.read',
+          scopes: "tweet.read users.read",
         },
       });
 
       if (signInError) {
-        if (signInError.message.includes('configuration')) {
-          throw new Error('Twitter authentication is not configured. Please make sure Twitter OAuth is set up in your Supabase dashboard.');
+        if (signInError.message.includes("configuration")) {
+          throw new Error(
+            "Twitter authentication is not configured. Please make sure Twitter OAuth is set up in your Supabase dashboard."
+          );
         }
         throw signInError;
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to sign in with Twitter. Please try again.";
+      const errorMessage =
+        err instanceof Error
+          ? err.message
+          : "Failed to sign in with Twitter. Please try again.";
       setError(errorMessage);
       console.error(err);
     } finally {
@@ -54,7 +61,9 @@ export function SignInForm() {
     >
       <Card className="glassmorphic p-8">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-white mb-2">Sign in to TweetAnalytics</h1>
+          <h1 className="text-2xl font-bold text-white mb-2">
+            Sign in to TweetAnalytics
+          </h1>
           <p className="text-gray-300">
             Connect your Twitter account to start tracking your engagement
           </p>

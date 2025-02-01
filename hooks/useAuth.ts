@@ -1,24 +1,24 @@
-import { useEffect, useState } from 'react';
-import { supabase } from '@/lib/supabase';
-import type { User } from '@supabase/supabase-js';
+// useAuth.tsx
+import { useEffect, useState } from "react";
+import type { User } from "@supabase/supabase-js";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-export function useAuth() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+export function useAuth(initialUser: User | null = null) {
+  const supabase = createClientComponentClient();
+  const [user, setUser] = useState<User | null>(initialUser);
+  const [loading, setLoading] = useState(!initialUser);
 
   useEffect(() => {
-    if (!supabase) {
-      setLoading(false);
-      return;
-    }
-
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    const fetchSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
       setLoading(false);
-    });
+    };
 
-    // Listen for auth changes
+    fetchSession();
+
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -27,15 +27,13 @@ export function useAuth() {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [supabase]);
 
   return {
     user,
     loading,
     signOut: async () => {
-      if (supabase) {
-        await supabase.auth.signOut();
-      }
+      await supabase.auth.signOut();
     },
   };
 }

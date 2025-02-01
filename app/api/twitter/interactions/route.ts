@@ -9,7 +9,7 @@ const POINT_VALUES = {
 };
 
 async function fetchTwitterInteractions(accessToken: string, userId: string) {
-  const coinfiId = "799445244802662400";
+  const alxion_bot = "1881029537191919616";
 
   const likesEndpoint = `https://api.twitter.com/2/users/${userId}/liked_tweets?expansions=author_id`;
   const retweetsEndpoint = `https://api.twitter.com/2/users/${userId}/retweets`;
@@ -41,13 +41,13 @@ async function fetchTwitterInteractions(accessToken: string, userId: string) {
     const interactions = [];
 
     for (const like of likes.data || []) {
-      if (like.author_id === coinfiId) {
+      if (like.author_id === alxion_bot) {
         interactions.push({ id: like.id, type: "like" });
       }
     }
 
     for (const retweet of retweets.data || []) {
-      if (retweet.author_id === coinfiId) {
+      if (retweet.author_id === alxion_bot) {
         interactions.push({ id: retweet.id, type: "retweet" });
       }
     }
@@ -55,7 +55,7 @@ async function fetchTwitterInteractions(accessToken: string, userId: string) {
     for (const tweet of tweets.data || []) {
       if (tweet.referenced_tweets) {
         const reference = tweet.referenced_tweets[0];
-        if (reference.author_id === coinfiId) {
+        if (reference.author_id === alxion_bot) {
           if (reference.type === "quoted") {
             interactions.push({ id: reference.id, type: "quote" });
           } else if (reference.type === "replied_to") {
