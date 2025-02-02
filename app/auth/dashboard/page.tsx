@@ -7,7 +7,7 @@ import { TwitterInteractionsProvider } from "./components/TwitterInteractionsPro
 
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-[url('/images/background.jpg')] bg-cover bg-fixed">
+    <div className="min-h-screen bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2832')] bg-cover bg-fixed">
       <div className="min-h-screen backdrop-blur-xl bg-black/50">
         <TwitterInteractionsProvider>
           <div className="container mx-auto px-4 py-8">

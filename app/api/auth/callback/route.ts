@@ -31,7 +31,7 @@ export async function GET(request: Request) {
       return NextResponse.redirect(`${origin}/signin?error=oauth_error`);
     }
     // If successful, the session is now written to a cookie.
-    return NextResponse.redirect(`${origin}/dashboard`);
+    return NextResponse.redirect(`${origin}/auth/dashboard`);
   }
 
   // If no code is present, redirect back with an error.

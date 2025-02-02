@@ -28,14 +28,19 @@ async function fetchTwitterInteractions(accessToken: string, userId: string) {
       }),
     ]);
 
-    if (!likesRes.ok || !retweetsRes.ok || !tweetsRes.ok) {
-      throw new Error("Failed to fetch Twitter interactions");
-    }
+    const checkResponse = async (res: Response, apiName: string) => {
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error(`Twitter ${apiName} API error:`, errorText);
+        throw new Error(`Twitter ${apiName} API: ${res.statusText}`);
+      }
+      return res.json();
+    };
 
     const [likes, retweets, tweets] = await Promise.all([
-      likesRes.json(),
-      retweetsRes.json(),
-      tweetsRes.json(),
+      checkResponse(likesRes, "Likes"),
+      checkResponse(retweetsRes, "Retweets"),
+      checkResponse(tweetsRes, "Tweets"),
     ]);
 
     const interactions = [];

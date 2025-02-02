@@ -33,7 +33,7 @@ export default function AuthCallback() {
         return;
       }
 
-      router.replace("/dashboard");
+      router.replace("/auth/dashboard");
     }
     handleOAuthCallback();
   }, [router]);

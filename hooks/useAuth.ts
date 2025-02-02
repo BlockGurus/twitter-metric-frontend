@@ -1,24 +1,24 @@
-// useAuth.tsx
 import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabase";
 import type { User } from "@supabase/supabase-js";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 
-export function useAuth(initialUser: User | null = null) {
-  const supabase = createClientComponentClient();
-  const [user, setUser] = useState<User | null>(initialUser);
-  const [loading, setLoading] = useState(!initialUser);
-
+export function useAuth() {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
   useEffect(() => {
-    const fetchSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
       setLoading(false);
-    };
+    });
 
-    fetchSession();
-
+    // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -27,19 +27,17 @@ export function useAuth(initialUser: User | null = null) {
     });
 
     return () => subscription.unsubscribe();
-  }, [supabase]);
+  }, []);
 
-  useEffect(() => {
-    let _user = localStorage.getItem("sb-lysagtmixldesfmutaby-auth-token");
-    if (_user) {
-      setUser(JSON.parse(_user));
-    }
-  }, [user]);
   return {
     user,
     loading,
     signOut: async () => {
-      await supabase.auth.signOut();
+      if (supabase) {
+        await supabase.auth.signOut();
+        setUser(null);
+        router.replace("/");
+      }
     },
   };
 }

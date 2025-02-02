@@ -28,7 +28,7 @@ export function SignInForm() {
         provider: "twitter",
         options: {
           redirectTo: `${redirectUrl}`,
-          scopes: "tweet.read users.read",
+          scopes: "tweet.read users.read offline.access",
         },
       });
 

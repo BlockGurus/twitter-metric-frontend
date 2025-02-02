@@ -12,9 +12,11 @@ export function DashboardHeader() {
     <Card className="glassmorphic p-6">
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-white">Engagement Dashboard</h1>
+          <h1 className="text-2xl font-bold text-white">
+            Engagement Dashboard
+          </h1>
           <p className="text-gray-300">
-            Tracking interactions with @coinfi
+            Tracking interactions with @{user?.user_metadata?.username}
           </p>
         </div>
         <Button
