@@ -7,14 +7,9 @@ export function useTwitterInteractions() {
   const [error, setError] = useState<string | null>(null);
   const fetchInteractions = async () => {
     try {
-      const response = await fetch("/api/twitter/interactions");
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || "Failed to process interactions");
-      }
+      await fetch("/api/twitter/interactions");
     } catch (err) {
-      console.error(err);
+      console.log("error", err);
       // Handle JSON parse errors specifically
       if (err instanceof SyntaxError) {
         setError("Invalid response from server");
