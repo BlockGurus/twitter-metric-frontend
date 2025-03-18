@@ -4,8 +4,19 @@ import { motion } from "framer-motion";
 import { Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useSecretNetwork } from "@/providers/SecretNetworkProvider";
 
 export function Hero() {
+  const { connect, isConnected, disconnect, address } = useSecretNetwork();
+
+  const handleWalletConnect = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connect();
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center">
       <motion.div
@@ -18,15 +29,22 @@ export function Hero() {
           Track Your Twitter Impact
         </h1>
         <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          Connect your wallet and Twitter account to measure your engagement and earn points based on your social impact.
+          Connect your wallet and Twitter account to measure your engagement and
+          earn points based on your social impact.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             size="lg"
-            className="bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white"
-            asChild
+            className={`bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 text-white ${
+              isConnected ? "bg-green-500/30 hover:bg-green-500/40" : ""
+            }`}
+            onClick={handleWalletConnect}
           >
-            <Link href="/auth/signin">Connect Wallet</Link>
+            {isConnected
+              ? `Wallet Connected: ${address?.slice(0, 6)}...${address?.slice(
+                  -4
+                )}`
+              : "Connect Wallet"}
           </Button>
           <Button
             size="lg"
