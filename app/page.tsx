@@ -5,6 +5,7 @@ import { EngagementStats } from "./components/EngagementStats";
 import { Testimonials } from "./components/Testimonials";
 import { FAQ } from "./components/FAQ";
 import { Footer } from "./components/Footer";
+import { SecretNetworkConnect } from "./components/SecretNetworkConnect";
 
 const Home = () => {
   return (
@@ -14,6 +15,9 @@ const Home = () => {
           <Hero />
           <Features />
           <HowItWorks />
+          <div className="container px-4 mx-auto">
+            <SecretNetworkConnect />
+          </div>
           <EngagementStats />
 
           <Testimonials />

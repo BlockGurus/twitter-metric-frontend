@@ -12,20 +12,34 @@ import {
 const faqs = [
   {
     question: "How are engagement points calculated?",
-    answer: "Engagement points are calculated based on various metrics including likes, retweets, replies, and quote tweets. Each interaction type has a different point value, and the total is weighted based on your follower count and overall reach."
+    answer:
+      "Engagement points are calculated based on various metrics including likes, retweets, replies, and quote tweets. Each interaction type has a different point value, and the total is weighted based on your follower count and overall reach.",
   },
   {
     question: "What wallet types are supported?",
-    answer: "We currently support MetaMask, WalletConnect, and Coinbase Wallet. More wallet integrations are being added regularly to ensure broad compatibility with the Web3 ecosystem."
+    answer:
+      "We currently support MetaMask, WalletConnect, Coinbase Wallet, and Keplr for Secret Network integration. More wallet integrations are being added regularly to ensure broad compatibility with the Web3 ecosystem.",
   },
   {
     question: "How secure is my data?",
-    answer: "Your data is encrypted and stored securely using blockchain technology. We implement industry-standard security practices and regular audits to ensure the safety of your information."
+    answer:
+      "Your data is encrypted and stored securely using Secret Network's privacy-preserving blockchain technology. We implement industry-standard security practices and regular audits to ensure the safety of your information while maintaining your privacy.",
   },
   {
     question: "Can I export my engagement data?",
-    answer: "Yes, you can export your engagement data in various formats including CSV and JSON. This feature helps you analyze your performance using external tools or integrate with other platforms."
-  }
+    answer:
+      "Yes, you can export your engagement data in various formats including CSV and JSON. This feature helps you analyze your performance using external tools or integrate with other platforms.",
+  },
+  {
+    question: "What is Secret Network and why is it used?",
+    answer:
+      "Secret Network is a privacy-first blockchain that enables encrypted data even in a decentralized environment. We use Secret Network to store your engagement metrics in a way that only you can access, ensuring your social media analytics remain private while still benefiting from blockchain security.",
+  },
+  {
+    question: "Do I need to use Secret Network to use this platform?",
+    answer:
+      "No, Secret Network integration is optional but recommended for users who want enhanced privacy. You can still use the platform with other supported wallets, but Secret Network provides the highest level of data privacy.",
+  },
 ];
 
 export function FAQ() {
